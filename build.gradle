@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'eclipse' // útil si abrís el proyecto sin Buildship (File > Import > Existing Projects)
+}
+
+group = 'HuffmanTPEmpty_v2.3.9'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // Java 17 como en tu POM
+    }
+}
+
+repositories {
+    mavenCentral()
+	maven { url = uri("https://jitpack.io") }
+}
+
+dependencies {
+    // JUnit 5 (BOM + api/engine)
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation "com.github.thejavalistener:MyFramework:v1.0.9"
+}
+
+test {
+    useJUnitPlatform()
+}
