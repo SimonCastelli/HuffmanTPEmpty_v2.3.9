@@ -9,5 +9,5 @@ public interface Compresor
 	public HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista);
 	public void generarCodigosHuffman(HuffmanInfo root,HuffmanTable arr[]);
 	public void escribirEncabezado(String filename,HuffmanTable arr[]);
-	public void escribirContenido(String filename,HuffmanTable arr[]);	
+	public void escribirContenido(String filename,HuffmanTable arr[]);
 }

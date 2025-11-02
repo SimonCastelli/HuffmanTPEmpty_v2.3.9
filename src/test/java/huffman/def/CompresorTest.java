@@ -13,10 +13,10 @@ public class CompresorTest
 	@Test
 	public void testContarOcurrencias()
 	{
-		try(FileInputStream fis = new FileInputStream("beegees.txt"))
+		try(FileInputStream fis = new FileInputStream("huffman/def/beegees.txt"))
 		{
 			Compresor c = Factory.getCompresor();
-			HuffmanTable arr[] = c.contarOcurrencias("beegees.txt");
+			HuffmanTable arr[] = c.contarOcurrencias("huffman/def/beegees.txt");
 			
 			assertEquals(4,arr['A'].getN());
 			assertEquals(3,arr['B'].getN());

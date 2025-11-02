@@ -9,7 +9,7 @@ public class BitWriterImple implements BitWriter
 {
     private OutputStream os;
     private int buffer;
-    private int size;
+    private int size = 0;
     @Override
     public void using(OutputStream os)
     {

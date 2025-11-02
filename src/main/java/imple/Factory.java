@@ -7,23 +7,25 @@ import huffman.def.Descompresor;
 
 public class Factory
 {
-	public static BitWriter getBitWriter()
-	{
-		return new BitWriterImple();
-	}
+    public static BitWriter getBitWriter()
+    {
+        return new BitWriterImple();
+    }
 
-	public static BitReader getBitReader()
-	{
-		return new BitReaderImple();
-	}
+    public static BitReader getBitReader()
+    {
+        return new BitReaderImple();
+    }
 
-	public static Compresor getCompresor()
-	{
-		return null;
-	}
-	
-	public static Descompresor getDescompresor()
-	{
-		return null;
-	}
+    public static Compresor getCompresor()
+    {
+        // Devuelve la implementación concreta del compresor
+        return new CompresorImple();
+    }
+
+    public static Descompresor getDescompresor()
+    {
+        // Devuelve la implementación concreta del descompresor
+        return null;
+    }
 }
