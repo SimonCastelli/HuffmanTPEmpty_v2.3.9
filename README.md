@@ -35,23 +35,7 @@ El proyecto está diseñado para ejecutarse desde la clase principal `huffman.ap
 
 ## 📂 Estructura del Proyecto
 
-src/
- ├── huffman/
- │    └── def/
- │         ├── BitReader.java
- │         ├── BitWriter.java
- │         ├── Compresor.java
- │         ├── Descompresor.java
- │         ├── BitReaderTest.java
- │         ├── BitWriterTest.java
- │         └── ...
- ├── imple/
- │    ├── BitReaderImple.java
- │    ├── BitWriterImple.java
- │    ├── Factory.java
- │    └── ...
- └── Main.java
- 
+. ├── huffman/ │ ├── app/ │ │ └── HuffmanApp.java # 🚀 Punto de entrada principal │ └── def/ │ ├── BitReader.java # (Interfaz) │ ├── BitWriter.java # (Interfaz) │ ├── Compresor.java # (Interfaz) │ ├── Descompresor.java # (Interfaz) │ ├── HuffmanInfo.java # (Clase para el Nodo del árbol) │ └── HuffmanTable.java # (Clase para la Tabla de frecuencias) │ ├── imple/ │ ├── BitReaderImple.java # (Implementación lector de bits) │ ├── BitWriterImple.java # (Implementación escritor de bits) │ ├── CompresorImple.java # (Implementación de la compresión) │ ├── DescompresorImple.java # (Implementación de la descompresión) │ └── Factory.java # (Fábrica para obtener implementaciones) │ └── README.md
  ## 🛠️ Cómo Usar
 
 El proyecto está diseñado para ejecutarse desde la clase principal `huffman.app.HuffmanApp`.
