@@ -60,26 +60,6 @@ El proyecto está diseñado para ejecutarse desde la clase principal `huffman.ap
   |
   +-- README.md
 ```
- ## 🛠️ Cómo Usar
-
-El proyecto está diseñado para ejecutarse desde la clase principal `huffman.app.HuffmanApp`.
-
-### Prerrequisitos
-
-* Tener instalado el **Java Development Kit (JDK)** (versión 8 o superior).
-
-### Ejecución
-
-1.  Compila el proyecto (si no estás usando un IDE que lo haga automáticamente).
-2.  Ejecuta la clase principal:
-
-    ```bash
-    java huffman.app.HuffmanApp
-    ```
-
-3.  Al ejecutarlo, se abrirá un explorador de archivos:
-    * **Para Comprimir:** Selecciona cualquier archivo (ej: `documento.txt`). El programa generará `documento.txt.huff` en la misma carpeta.
-    * **Para Descomprimir:** Selecciona un archivo `.huff` (ej: `documento.txt.huff`). El programa generará el archivo original (ej: `documento.txt`) en la misma carpeta.
 
 ##  Lógica de Compresión y Descompresión
 
