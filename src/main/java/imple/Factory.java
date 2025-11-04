@@ -22,10 +22,9 @@ public class Factory
         // Devuelve la implementación concreta del compresor
         return new CompresorImple();
     }
-
     public static Descompresor getDescompresor()
     {
-        // Devuelve la implementación concreta del descompresor
-        return null;
+        return new DescompresorImple();
     }
+
 }

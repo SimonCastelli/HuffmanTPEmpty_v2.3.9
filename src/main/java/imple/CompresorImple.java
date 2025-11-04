@@ -1,4 +1,5 @@
 package imple;
+import java.util.PriorityQueue;
 
 import huffman.def.*;
 import java.io.*;
@@ -54,21 +55,35 @@ public class CompresorImple implements Compresor
             return null;
         }
 
-        while (lista.size() > 1) {
-            lista.sort(Comparator.comparingInt(HuffmanInfo::getN));
+        // Usar PriorityQueue en lugar de List.sort() en bucle
+        PriorityQueue<HuffmanInfo> pq = new PriorityQueue<>(Comparator.comparingInt(HuffmanInfo::getN));
+        pq.addAll(lista);
 
-            HuffmanInfo izq = lista.get(0);
-            HuffmanInfo der = lista.get(1);
+        // Caso especial: archivo con un solo tipo de caracter
+        // (Esto faltaba en tu compresor original y es crítico)
+        if (pq.size() == 1) {
+            HuffmanInfo unico = pq.poll();
+            HuffmanInfo nuevo = new HuffmanInfo();
+            nuevo.setC('\0');
+            nuevo.setN(unico.getN());
+            nuevo.setLeft(unico); // Asignar a la izquierda (o derecha, pero ser consistente)
+            nuevo.setRight(null); // O un nodo "dummy" si es necesario
+            pq.add(nuevo);
+        }
+
+        while (pq.size() > 1) {
+            HuffmanInfo izq = pq.poll();
+            HuffmanInfo der = pq.poll();
+
             HuffmanInfo nuevo = new HuffmanInfo();
             nuevo.setC('\0');
             nuevo.setN(izq.getN() + der.getN());
             nuevo.setLeft(izq);
             nuevo.setRight(der);
-            lista.remove(izq);
-            lista.remove(der);
-            lista.add(nuevo);
+
+            pq.add(nuevo);
         }
-        return lista.get(0);
+        return pq.poll();
     }
 
     @Override
@@ -93,48 +108,63 @@ public class CompresorImple implements Compresor
 
         recorrer.accept(root, "");
     }
-
     @Override
-    public void escribirEncabezado(String filename, HuffmanTable[] arr)
-    {
-        String outFilename = filename + ".huff";
+public void escribirEncabezado(String filename, HuffmanTable[] arr) {
+    String outFilename = filename + ".huff";
 
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(outFilename))) {
-            for (int i = 0; i < 256; i++) {
-                dos.writeInt(arr[i].getN());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(outFilename))) {
+        // Contar cuántos caracteres aparecen
+        int usados = 0;
+        for (int i = 0; i < 256; i++) {
+            if (arr[i].getN() > 0) usados++;
         }
+
+        // 1️⃣ Guardar la cantidad de caracteres distintos
+        dos.writeInt(usados);
+
+        // 2️⃣ Guardar pares (caracter, frecuencia)
+        for (int i = 0; i < 256; i++) {
+            if (arr[i].getN() > 0) {
+                dos.writeByte(i);        // el carácter
+                dos.writeInt(arr[i].getN()); // su frecuencia
+            }
+        }
+
+        // 3️⃣ Guardar tamaño original
+        File file = new File(filename);
+        long originalSize = file.length();
+        dos.writeInt((int) originalSize);
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 
     @Override
-    public void escribirContenido(String filename, HuffmanTable[] arr)
-    {
+    public void escribirContenido(String filename, HuffmanTable[] arr) {
         String outFilename = filename + ".huff";
 
         BitWriter bitWriter = new imple.BitWriterImple();
 
         try (FileInputStream in = new FileInputStream(filename);
-             FileOutputStream fos = new FileOutputStream(outFilename, true))
-        {
+             FileOutputStream fos = new FileOutputStream(outFilename, true)) {
+
             bitWriter.using(fos);
 
             int b;
             while ((b = in.read()) != -1) {
                 String codigo = arr[b].getCod();
                 for (char c : codigo.toCharArray()) {
-                    if (c == '1') {
-                        bitWriter.writeBit(1);
-                    } else {
-                        bitWriter.writeBit(0);
-                    }
+                    bitWriter.writeBit(c == '1' ? 1 : 0);
                 }
             }
+
             bitWriter.flush();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

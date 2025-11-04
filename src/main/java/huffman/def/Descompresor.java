@@ -6,7 +6,11 @@ public interface Descompresor
 	 * y retornar cuántos bytes conforman el encabezado del archivo .huf, desde el inicio
 	 * hasta la longitud grabada en 4 bytes (esto último no inclusive).
 	 */
-	public int recomponerArbol(String filename,HuffmanInfo root);
+
+	//public static recomponerArbol(String filename, HuffmanInfo root);
+    //static int recomponerArbol(String filename, HuffmanInfo root);
+
+	public int recomponerArbol(String filename, HuffmanInfo root);
 
 	/** Debe recomponer el archivo original. Recibe el árbol Huffman ya armado y cuántos bytes
 	 * deben ser descartados del .huf porque son el encabezado que ya fue utilizado en la función

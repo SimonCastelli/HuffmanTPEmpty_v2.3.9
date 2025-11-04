@@ -34,16 +34,20 @@ public class BitWriterImple implements BitWriter
             size = 0;
         }
     }
-        
+
     @Override
-    public void flush() 
-    {
-        if(size > 0) {
+    public void flush() {
+        if (size > 0) {
             try {
                 os.write(buffer);
+                os.flush(); // <-- asegúrate de volcar todo al archivo
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            buffer = 0;  // <-- resetear el buffer
+            size = 0;    // <-- resetear el contador de bits
         }
     }
+
+
 }
