@@ -1,18 +1,18 @@
-# 🌳 Compresor de Archivos Huffman en Java
+#  Compresor de Archivos Huffman en Java
 
 Este proyecto es una implementación completa del algoritmo de compresión sin pérdidas de David Huffman, desarrollado en Java. El programa es capaz de tomar cualquier archivo, analizar la frecuencia de sus bytes, construir un árbol de Huffman, y generar un archivo comprimido `.huff`.
 
 Posteriormente, puede leer dicho archivo `.huff`, reconstruir el árbol original a partir de la cabecera, y descomprimir el contenido para restaurar el archivo original de forma idéntica.
 
-## ✨ Características Principales
+## Características Principales
 
-* 📦 **Compresión de Archivos:** Comprime cualquier tipo de archivo (texto, imágenes, etc.) en un formato `.huff` personalizado.
-* 🗃️ **Descompresión Precisa:** Restaura perfectamente el archivo original desde un archivo `.huff`, bit a bit.
-* 🌳 **Árbol de Huffman Dinámico:** Construye un árbol de Huffman óptimo basado en las frecuencias de bytes del archivo de entrada.
-* ⚙️ **Manejo a Nivel de Bits:** Utiliza `BitWriter` y `BitReader` personalizados para una compresión real, empaquetando los códigos de Huffman en bytes.
-* 🧾 **Cabecera Personalizada:** Almacena la tabla de frecuencias (el "mapa" para descomprimir) de forma eficiente en la cabecera del archivo `.huff`, junto con el tamaño original del archivo.
+*  **Compresión de Archivos:** Comprime cualquier tipo de archivo (texto, imágenes, etc.) en un formato `.huff` personalizado.
+*  **Descompresión Precisa:** Restaura perfectamente el archivo original desde un archivo `.huff`, bit a bit.
+*  **Árbol de Huffman Dinámico:** Construye un árbol de Huffman óptimo basado en las frecuencias de bytes del archivo de entrada.
+*  **Manejo a Nivel de Bits:** Utiliza `BitWriter` y `BitReader` personalizados para una compresión real, empaquetando los códigos de Huffman en bytes.
+*  **Cabecera Personalizada:** Almacena la tabla de frecuencias (el "mapa" para descomprimir) de forma eficiente en la cabecera del archivo `.huff`, junto con el tamaño original del archivo.
 
-## 🛠️ Cómo Usar
+##  Cómo Usar
 
 El proyecto está diseñado para ejecutarse desde la clase principal `huffman.app.HuffmanApp`.
 
@@ -40,7 +40,7 @@ El proyecto está diseñado para ejecutarse desde la clase principal `huffman.ap
   +-- huffman/
   |   |
   |   +-- app/
-  |   |   |-- HuffmanApp.java       # 🚀 Punto de entrada principal
+  |   |   |-- HuffmanApp.java       #  Punto de entrada principal
   |   |
   |   +-- def/
   |       |-- BitReader.java        # (Interfaz)
@@ -81,7 +81,7 @@ El proyecto está diseñado para ejecutarse desde la clase principal `huffman.ap
     * **Para Comprimir:** Selecciona cualquier archivo (ej: `documento.txt`). El programa generará `documento.txt.huff` en la misma carpeta.
     * **Para Descomprimir:** Selecciona un archivo `.huff` (ej: `documento.txt.huff`). El programa generará el archivo original (ej: `documento.txt`) en la misma carpeta.
 
-## 🧠 Lógica de Compresión y Descompresión
+##  Lógica de Compresión y Descompresión
 
 ### Compresión (`CompresorImple`)
 
