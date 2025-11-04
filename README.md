@@ -34,8 +34,32 @@ El proyecto está diseñado para ejecutarse desde la clase principal `huffman.ap
     * **Para Descomprimir:** Selecciona un archivo `.huff` (ej: `documento.txt.huff`). El programa generará el archivo original (ej: `documento.txt`) en la misma carpeta.
 
 ## 📂 Estructura del Proyecto
-
-. ├── huffman/ │ ├── app/ │ │ └── HuffmanApp.java # 🚀 Punto de entrada principal │ └── def/ │ ├── BitReader.java # (Interfaz) │ ├── BitWriter.java # (Interfaz) │ ├── Compresor.java # (Interfaz) │ ├── Descompresor.java # (Interfaz) │ ├── HuffmanInfo.java # (Clase para el Nodo del árbol) │ └── HuffmanTable.java # (Clase para la Tabla de frecuencias) │ ├── imple/ │ ├── BitReaderImple.java # (Implementación lector de bits) │ ├── BitWriterImple.java # (Implementación escritor de bits) │ ├── CompresorImple.java # (Implementación de la compresión) │ ├── DescompresorImple.java # (Implementación de la descompresión) │ └── Factory.java # (Fábrica para obtener implementaciones) │ └── README.md
+```
+(Directorio Raíz)
+  |
+  +-- huffman/
+  |   |
+  |   +-- app/
+  |   |   |-- HuffmanApp.java       # 🚀 Punto de entrada principal
+  |   |
+  |   +-- def/
+  |       |-- BitReader.java        # (Interfaz)
+  |       |-- BitWriter.java        # (Interfaz)
+  |       |-- Compresor.java        # (Interfaz)
+  |       |-- Descompresor.java     # (Interfaz)
+  |       |-- HuffmanInfo.java      # (Clase para el Nodo del árbol)
+  |       |-- HuffmanTable.java     # (Clase para la Tabla de frecuencias)
+  |
+  +-- imple/
+  |   |
+  |   |-- BitReaderImple.java     # (Implementación lector de bits)
+  |   |-- BitWriterImple.java     # (Implementación escritor de bits)
+  |   |-- CompresorImple.java     # (Implementación de la compresión)
+  |   |-- DescompresorImple.java  # (Implementación de la descompresión)
+  |   |-- Factory.java            # (Fábrica para obtener implementaciones)
+  |
+  +-- README.md
+```
  ## 🛠️ Cómo Usar
 
 El proyecto está diseñado para ejecutarse desde la clase principal `huffman.app.HuffmanApp`.
