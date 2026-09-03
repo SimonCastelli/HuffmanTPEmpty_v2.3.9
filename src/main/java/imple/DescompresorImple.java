@@ -1,8 +1,9 @@
 package imple;
 
 import huffman.def.*;
+import huffman.util.HuffmanTreeBuilder;
 import java.io.*;
-import java.util.*;
+import java.util.List;
 
 public class DescompresorImple implements Descompresor
 {
@@ -38,8 +39,8 @@ public class DescompresorImple implements Descompresor
             return -1;
         }
 
-        List<HuffmanInfo> lista = crearListaEnlazada(arr);
-        HuffmanInfo newRoot = convertirListaEnArbol(lista);
+        List<HuffmanInfo> lista = HuffmanTreeBuilder.crearListaEnlazada(arr);
+        HuffmanInfo newRoot = HuffmanTreeBuilder.convertirListaEnArbol(lista);
 
         if (newRoot != null) {
             root.setN(newRoot.getN());
@@ -91,55 +92,4 @@ public class DescompresorImple implements Descompresor
         }
     }
 
-    // --- MÉTODOS AUXILIARES (Copiados de CompresorImple) ---
-    private List<HuffmanInfo> crearListaEnlazada(HuffmanTable[] arr)
-    {
-        List<HuffmanInfo> lista = new ArrayList<>();
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getN() > 0) {
-                HuffmanInfo info = new HuffmanInfo();
-                info.setC((char) i);
-                info.setN(arr[i].getN());
-                info.setLeft(null);
-                info.setRight(null);
-                lista.add(info);
-            }
-        }
-        return lista;
-    }
-
-    private HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista)
-    {
-        if (lista == null || lista.isEmpty()) {
-            return null;
-        }
-
-        PriorityQueue<HuffmanInfo> pq = new PriorityQueue<>(Comparator.comparingInt(HuffmanInfo::getN));
-        pq.addAll(lista);
-
-        // Caso especial: archivo con un solo tipo de caracter
-        if (pq.size() == 1) {
-            HuffmanInfo unico = pq.poll();
-            HuffmanInfo nuevo = new HuffmanInfo();
-            nuevo.setC('\0');
-            nuevo.setN(unico.getN());
-            nuevo.setLeft(unico);
-            nuevo.setRight(null);
-            pq.add(nuevo);
-        }
-
-        while (pq.size() > 1) {
-            HuffmanInfo izq = pq.poll();
-            HuffmanInfo der = pq.poll();
-
-            HuffmanInfo nuevo = new HuffmanInfo();
-            nuevo.setC('\0');
-            nuevo.setN(izq.getN() + der.getN());
-            nuevo.setLeft(izq);
-            nuevo.setRight(der);
-
-            pq.add(nuevo);
-        }
-        return pq.poll();
-    }
 }

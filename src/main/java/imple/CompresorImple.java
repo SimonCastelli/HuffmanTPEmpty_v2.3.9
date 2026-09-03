@@ -1,9 +1,10 @@
 package imple;
-import java.util.PriorityQueue;
 
 import huffman.def.*;
+import huffman.util.HuffmanTreeBuilder;
 import java.io.*;
-import java.util.*;
+import java.util.List;
+
 public class CompresorImple implements Compresor
 {
     @Override
@@ -32,58 +33,13 @@ public class CompresorImple implements Compresor
     @Override
     public List<HuffmanInfo> crearListaEnlazada(HuffmanTable[] arr)
     {
-        List<HuffmanInfo> lista = new ArrayList<>();
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getN() > 0) {
-                HuffmanInfo info = new HuffmanInfo();
-                info.setC((char) i);
-                info.setN(arr[i].getN());
-                info.setLeft(null);
-                info.setRight(null);
-                lista.add(info);
-            }
-        }
-
-        return lista;
+        return HuffmanTreeBuilder.crearListaEnlazada(arr);
     }
 
     @Override
     public HuffmanInfo convertirListaEnArbol(List<HuffmanInfo> lista)
     {
-        if (lista == null || lista.isEmpty()) {
-            return null;
-        }
-
-        // Usar PriorityQueue en lugar de List.sort() en bucle
-        PriorityQueue<HuffmanInfo> pq = new PriorityQueue<>(Comparator.comparingInt(HuffmanInfo::getN));
-        pq.addAll(lista);
-
-        // Caso especial: archivo con un solo tipo de caracter
-        // (Esto faltaba en tu compresor original y es crítico)
-        if (pq.size() == 1) {
-            HuffmanInfo unico = pq.poll();
-            HuffmanInfo nuevo = new HuffmanInfo();
-            nuevo.setC('\0');
-            nuevo.setN(unico.getN());
-            nuevo.setLeft(unico); // Asignar a la izquierda (o derecha, pero ser consistente)
-            nuevo.setRight(null); // O un nodo "dummy" si es necesario
-            pq.add(nuevo);
-        }
-
-        while (pq.size() > 1) {
-            HuffmanInfo izq = pq.poll();
-            HuffmanInfo der = pq.poll();
-
-            HuffmanInfo nuevo = new HuffmanInfo();
-            nuevo.setC('\0');
-            nuevo.setN(izq.getN() + der.getN());
-            nuevo.setLeft(izq);
-            nuevo.setRight(der);
-
-            pq.add(nuevo);
-        }
-        return pq.poll();
+        return HuffmanTreeBuilder.convertirListaEnArbol(lista);
     }
 
     @Override
@@ -109,37 +65,36 @@ public class CompresorImple implements Compresor
         recorrer.accept(root, "");
     }
     @Override
-public void escribirEncabezado(String filename, HuffmanTable[] arr) {
-    String outFilename = filename + ".huff";
+    public void escribirEncabezado(String filename, HuffmanTable[] arr) {
+        String outFilename = filename + ".huff";
 
-    try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(outFilename))) {
-        // Contar cuántos caracteres aparecen
-        int usados = 0;
-        for (int i = 0; i < 256; i++) {
-            if (arr[i].getN() > 0) usados++;
-        }
-
-        // 1️⃣ Guardar la cantidad de caracteres distintos
-        dos.writeInt(usados);
-
-        // 2️⃣ Guardar pares (caracter, frecuencia)
-        for (int i = 0; i < 256; i++) {
-            if (arr[i].getN() > 0) {
-                dos.writeByte(i);        // el carácter
-                dos.writeInt(arr[i].getN()); // su frecuencia
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(outFilename))) {
+            // Contar cuántos caracteres aparecen
+            int usados = 0;
+            for (int i = 0; i < 256; i++) {
+                if (arr[i].getN() > 0) usados++;
             }
+
+            // 1) Guardar la cantidad de caracteres distintos
+            dos.writeInt(usados);
+
+            // 2) Guardar pares (caracter, frecuencia)
+            for (int i = 0; i < 256; i++) {
+                if (arr[i].getN() > 0) {
+                    dos.writeByte(i);            // el carácter
+                    dos.writeInt(arr[i].getN()); // su frecuencia
+                }
+            }
+
+            // 3) Guardar tamaño original
+            File file = new File(filename);
+            long originalSize = file.length();
+            dos.writeInt((int) originalSize);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // 3️⃣ Guardar tamaño original
-        File file = new File(filename);
-        long originalSize = file.length();
-        dos.writeInt((int) originalSize);
-
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
-
 
     @Override
     public void escribirContenido(String filename, HuffmanTable[] arr) {

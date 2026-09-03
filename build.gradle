@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'eclipse' // útil si abrís el proyecto sin Buildship (File > Import > Existing Projects)
 }
 
@@ -10,6 +11,10 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17) // Java 17 como en tu POM
     }
+}
+
+application {
+    mainClass = 'huffman.app.HuffmanApp'
 }
 
 repositories {
