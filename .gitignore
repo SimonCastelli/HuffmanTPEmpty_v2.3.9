@@ -1,4 +1,26 @@
-# Project exclude paths
-/.gradle/
-/build/
-/build/classes/java/main/
+# Gradle
+.gradle/
+build/
+bin/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.vscode/
+
+# Other tools
+.dbeaver/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime artifacts produced while running/testing the app
+*.huff
+test.x
